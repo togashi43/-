@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>あなたにぴったりなダイエット診断チャート</title>
+    <style>
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        
+        .header {
+            background: linear-gradient(45deg, #4a6ffd, #4cc3fd);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .question-container {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            border-left: 5px solid #4a6ffd;
+        }
+        
+        .question {
+            font-size: 20px;
+            color: #4a6ffd;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+        
+        .option {
+            background-color: #f0f5ff;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+        
+        .option:hover {
+            background-color: #e0ebff;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .arrow {
+            color: #4a6ffd;
+            margin-right: 10px;
+            font-weight: bold;
+        }
+        
+        .result-container {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            margin-top: 30px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        
+        .result-title {
+            color: #4a6ffd;
+            font-size: 24px;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+        
+        .result-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+        
+        .result-description {
+            margin-bottom: 25px;
+            line-height: 1.8;
+        }
+        
+        .retry-button {
+            background-color: #4a6ffd;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            margin-top: 15px;
+        }
+        
+        .retry-button:hover {
+            background-color: #3d5ce0;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        .progress-container {
+            width: 100%;
+            background-color: #e0e0e0;
+            border-radius: 20px;
+            margin: 20px 0;
+        }
+        
+        .progress-bar {
+            height: 10px;
+            border-radius: 20px;
+            background: linear-gradient(45deg, #4a6ffd, #4cc3fd);
+            transition: width 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>食べやせダイエット | あなたにぴったりな診断チャート</h1>
+        <p>質問に答えて、あなたに最適なダイエット方法を見つけましょう！</p>
+    </div>
+    
+    <div class="progress-container">
+        <div class="progress-bar" id="progress-bar" style="width: 0%"></div>
+    </div>
+    
+    <!-- 質問1 -->
+    <div class="question-container" id="q1">
+        <div class="question">Q1：ダイエットで最も失敗しやすいのはどんなとき？</div>
+        <div class="option" onclick="goToQuestion('q2', 'A')">
+            <span class="arrow">➜</span> 食べ過ぎてしまう
+        </div>
+        <div class="option" onclick="goToQuestion('q2', 'B')">
+            <span class="arrow">➜</span> 食事制限が続かない
+        </div>
+        <div class="option" onclick="goToQuestion('q2', 'C')">
+            <span class="arrow">➜</span> 運動が続かない
+        </div>
+    </div>
+    
+    <!-- 質問2 -->
+    <div class="question-container hidden" id="q2">
+        <div class="question">Q2：炭水化物についてどう思いますか？</div>
+        <div class="option" onclick="goToQuestion('q3', 'D')">
+            <span class="arrow">➜</span> 太るので避けたい
+        </div>
+        <div class="option" onclick="goToQuestion('q3', 'E')">
+            <span class="arrow">➜</span> 適切に摂れば問題ない
+        </div>
+        <div class="option" onclick="goToQuestion('q3', 'F')">
+            <span class="arrow">➜</span> 良く分からない
+        </div>
+    </div>
+    
+    <!-- 質問3 -->
+    <div class="question-container hidden" id="q3">
+        <div class="question">Q3：いつもの朝食は何ですか？</div>
+        <div class="option" onclick="goToQuestion('q4', 'G')">
+            <span class="arrow">➜</span> 食べない・コーヒーだけ
+        </div>
+        <div class="option" onclick="goToQuestion('q4', 'H')">
+            <span class="arrow">➜</span> パン・シリアルなど
+        </div>
+        <div class="option" onclick="goToQuestion('q4', 'I')">
+            <span class="arrow">➜</span> ご飯・おかず中心
+        </div>
+    </div>
+    
+    <!-- 質問4 -->
+    <div class="question-container hidden" id="q4">
+        <div class="question">Q4：過去にダイエットをして成功した経験は？</div>
+        <div class="option" onclick="goToQuestion('q5', 'J')">
+            <span class="arrow">➜</span> 一時的に成功したがリバウンドした
+        </div>
+        <div class="option" onclick="goToQuestion('q5', 'K')">
+            <span class="arrow">➜</span> 成功したことがない
+        </div>
+        <div class="option" onclick="goToQuestion('q5', 'L')">
+            <span class="arrow">➜</span> 成功して維持できている
+        </div>
+    </div>
+    
+    <!-- 質問5 -->
+    <div class="question-container hidden" id="q5">
+        <div class="question">Q5：甘いものはどれくらいの頻度で食べますか？</div>
+        <div class="option" onclick="showResult()">
+            <span class="arrow">➜</span> ほぼ毎日食べる
+        </div>
+        <div class="option" onclick="showResult()">
+            <span class="arrow">➜</span> 週に2〜3回程度
+        </div>
+        <div class="option" onclick="showResult()">
+            <span class="arrow">➜</span> ほとんど食べない
+        </div>
+    </div>
+    
+    <!-- 結果表示エリア -->
+    <div class="result-container hidden" id="result">
+        <div class="result-icon">🔍</div>
+        <div class="result-title">あなたの食べやせタイプは「<span id="result-type">代謝低下型</span>」です！</div>
+        <div class="result-description" id="result-description">
+            あなたは食事制限を繰り返すうちに代謝が低下している可能性があります。炭水化物を極端に制限すると、さらに代謝が落ちてしまいます。「食べやせ」メソッドでは、正しい炭水化物の摂り方で代謝を高め、リバウンドしにくい体質に改善していきます。
+        </div>
+        <p><strong>📊 現状のままでは、3ヶ月後に基礎代謝が約12%低下する恐れがあります。</strong></p>
+        <p>あなたに最適な食べやせプランについて、専門家に相談してみませんか？</p>
+        <button class="retry-button" onclick="location.href='https://your-website.com/contact'">無料カウンセリングを予約する</button>
+        <button class="retry-button" onclick="resetQuiz()">もう一度診断する</button>
+    </div>
+    
+    <script>
+        let answers = {};
+        let currentProgress = 0;
+        
+        function updateProgressBar(questionNumber) {
+            const totalQuestions = 5;
+            currentProgress = (questionNumber / totalQuestions) * 100;
+            document.getElementById('progress-bar').style.width = `${currentProgress}%`;
+        }
+        
+        function goToQuestion(nextQuestionId, answer) {
+            // 現在の質問番号を取得（例：q1なら1）
+            const currentQuestionNumber = parseInt(document.querySelector('.question-container:not(.hidden)').id.replace('q', ''));
+            
+            // 次の質問番号
+            const nextQuestionNumber = parseInt(nextQuestionId.replace('q', ''));
+            
+            // 回答を保存
+            answers[`q${currentQuestionNumber}`] = answer;
+            
+            // 現在の質問を非表示
+            document.querySelector('.question-container:not(.hidden)').classList.add('hidden');
+            
+            // 次の質問を表示
+            document.getElementById(nextQuestionId).classList.remove('hidden');
+            
+            // プログレスバーを更新
+            updateProgressBar(nextQuestionNumber - 1);
+        }
+        
+        function showResult() {
+            // 最後の質問の回答を保存
+            const lastQuestionNumber = parseInt(document.querySelector('.question-container:not(.hidden)').id.replace('q', ''));
+            answers[`q${lastQuestionNumber}`] = 'final';
+            
+            // 全ての質問を非表示
+            document.querySelectorAll('.question-container').forEach(container => {
+                container.classList.add('hidden');
+            });
+            
+            // 結果に基づいて診断タイプを決定（実際の実装ではより複雑なロジックになります）
+            determineResultType();
+            
+            // 結果を表示
+            document.getElementById('result').classList.remove('hidden');
+            
+            // プログレスバーを100%に
+            updateProgressBar(5);
+        }
+        
+        function determineResultType() {
+            // ここでは簡単なロジックですが、実際の実装ではより複雑な判定になります
+            // A, D, G, J の組み合わせが多ければ「代謝低下型」など
+            
+            const resultTypes = [
+                {
+                    type: "代謝低下型",
+                    description: "あなたは食事制限を繰り返すうちに代謝が低下している可能性があります。炭水化物を極端に制限すると、さらに代謝が落ちてしまいます。「食べやせ」メソッドでは、正しい炭水化物の摂り方で代謝を高め、リバウンドしにくい体質に改善していきます。"
+                },
+                {
+                    type: "糖質過多型",
+                    description: "あなたは知らず知らずのうちに過剰な糖質を摂取している可能性があります。特に加工食品に含まれる糖質が代謝を妨げています。「食べやせ」メソッドでは、良質な炭水化物と摂取タイミングの調整で、効率的に脂肪を燃焼させる方法をお伝えします。"
+                },
+                {
+                    type: "食べ順エラー型",
+                    description: "あなたは食べる順番が血糖値の急上昇を招き、脂肪蓄積を促進している可能性があります。「食べやせ」メソッドでは、同じ食事内容でも食べる順番を変えるだけで代謝が上がり、痩せやすい体質になれることをお伝えします。"
+                }
+            ];
+            
+            // ランダムに結果を選択（デモ用）
+            // 実際の実装では回答パターンに基づいて判定します
+            const randomIndex = Math.floor(Math.random() * resultTypes.length);
+            const selectedResult = resultTypes[randomIndex];
+            
+            document.getElementById('result-type').textContent = selectedResult.type;
+            document.getElementById('result-description').textContent = selectedResult.description;
+        }
+        
+        function resetQuiz() {
+            // 回答をリセット
+            answers = {};
+            
+            // 全ての質問と結果を非表示
+            document.querySelectorAll('.question-container, .result-container').forEach(container => {
+                container.classList.add('hidden');
+            });
+            
+            // 最初の質問を表示
+            document.getElementById('q1').classList.remove('hidden');
+            
+            // プログレスバーをリセット
+            updateProgressBar(0);
+        }
+        
+        // 初回のプログレスバー設定
+        updateProgressBar(0);
+    </script>
+</body>
+</html>

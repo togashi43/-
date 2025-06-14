@@ -1,0 +1,5 @@
+{
+  "report": ["Use the corporate report template located at docs/report_template.docx", "Check sales data in docs/sales_data.xlsx"],
+  "meeting": ["Coordinate with the team using calendar invites", "Prepare using docs/meeting_agenda_template.docx"],
+  "presentation": ["Create slides using slides/presentation_template.pptx", "Refer to previous presentations in slides/archives/"]
+}

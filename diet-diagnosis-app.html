@@ -1,321 +1,186 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>あなたにぴったりなダイエット診断チャート</title>
-    <style>
-        body {
-            font-family: 'Helvetica Neue', Arial, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #f5f5f5;
-        }
-        
-        .header {
-            background: linear-gradient(45deg, #4a6ffd, #4cc3fd);
-            color: white;
-            padding: 20px;
-            border-radius: 10px;
-            text-align: center;
-            margin-bottom: 30px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-        
-        .question-container {
-            background: white;
-            border-radius: 10px;
-            padding: 25px;
-            margin-bottom: 20px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-            border-left: 5px solid #4a6ffd;
-        }
-        
-        .question {
-            font-size: 20px;
-            color: #4a6ffd;
-            margin-bottom: 20px;
-            font-weight: bold;
-        }
-        
-        .option {
-            background-color: #f0f5ff;
-            padding: 15px;
-            margin: 10px 0;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-        }
-        
-        .option:hover {
-            background-color: #e0ebff;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-        
-        .arrow {
-            color: #4a6ffd;
-            margin-right: 10px;
-            font-weight: bold;
-        }
-        
-        .result-container {
-            background: white;
-            border-radius: 10px;
-            padding: 25px;
-            margin-top: 30px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            text-align: center;
-        }
-        
-        .result-title {
-            color: #4a6ffd;
-            font-size: 24px;
-            margin-bottom: 15px;
-            font-weight: bold;
-        }
-        
-        .result-icon {
-            font-size: 48px;
-            margin-bottom: 20px;
-        }
-        
-        .result-description {
-            margin-bottom: 25px;
-            line-height: 1.8;
-        }
-        
-        .retry-button {
-            background-color: #4a6ffd;
-            color: white;
-            border: none;
-            padding: 12px 25px;
-            border-radius: 50px;
-            cursor: pointer;
-            font-size: 16px;
-            transition: all 0.3s ease;
-            margin-top: 15px;
-        }
-        
-        .retry-button:hover {
-            background-color: #3d5ce0;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
-        
-        .hidden {
-            display: none;
-        }
-        
-        .progress-container {
-            width: 100%;
-            background-color: #e0e0e0;
-            border-radius: 20px;
-            margin: 20px 0;
-        }
-        
-        .progress-bar {
-            height: 10px;
-            border-radius: 20px;
-            background: linear-gradient(45deg, #4a6ffd, #4cc3fd);
-            transition: width 0.3s ease;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Growth Partner Support | 教育事業向けマーケ実行＋伴走支援</title>
+  <style>
+    :root {
+      --bg: #f8f7ff;
+      --surface: #ffffff;
+      --ink: #1f2240;
+      --muted: #5b607d;
+      --primary: #5f56ff;
+      --primary-dark: #433ad9;
+      --accent: #eff0ff;
+      --line: #e4e6f4;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Hiragino Kaku Gothic ProN", "Yu Gothic", "Noto Sans JP", sans-serif;
+      color: var(--ink);
+      background: var(--bg);
+      line-height: 1.75;
+    }
+    .container { width: min(1100px, 92%); margin: 0 auto; }
+    section { padding: 64px 0; }
+    h1,h2,h3 { line-height: 1.35; margin: 0 0 16px; }
+    h2 { font-size: clamp(1.6rem, 2.5vw, 2.1rem); }
+    p { margin: 0 0 12px; }
+    .badge { display:inline-block;background:#ecebff;color:var(--primary-dark);padding:4px 12px;border-radius:999px;font-weight:700;font-size:.85rem; }
+    .hero { padding: 88px 0 70px; background: linear-gradient(160deg, #f3f1ff, #f8f7ff 55%); }
+    .hero-grid { display:grid; gap:32px; grid-template-columns: 1.1fr .9fr; align-items:center; }
+    .hero-card, .card { background:var(--surface); border:1px solid var(--line); border-radius:16px; padding:24px; }
+    .lead { font-size:1.08rem; color:var(--muted); }
+    .cta-row { display:flex; flex-wrap:wrap; gap:12px; margin-top:24px; }
+    .btn { text-decoration:none; padding:12px 18px; border-radius:12px; font-weight:700; display:inline-block; }
+    .btn.primary { background:var(--primary); color:#fff; }
+    .btn.secondary { background:#fff; color:var(--primary); border:1px solid var(--primary); }
+    .meta { font-size:.92rem; color:var(--muted); margin-top:16px; }
+    .photo {
+      min-height: 320px; border-radius:16px; background: linear-gradient(140deg,#d7dcff,#f0f1ff);
+      display:flex; align-items:center; justify-content:center; color:#454a7b; font-weight:700;
+    }
+    .grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:18px; }
+    .list-check { padding:0; margin:16px 0 0; list-style:none; }
+    .list-check li { padding:10px 0; border-bottom:1px dashed var(--line); }
+    .list-check li::before { content:"✓ "; color:var(--primary-dark); font-weight:700; }
+    .cards-3 { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+    .plan .price { font-size:1.5rem; font-weight:800; color:var(--primary-dark); }
+    table { width:100%; border-collapse: collapse; background:#fff; border-radius:12px; overflow:hidden; }
+    th,td { border:1px solid var(--line); padding:12px; text-align:center; }
+    th { background:var(--accent); }
+    .stats { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; }
+    .stat { background:#fff; border:1px solid var(--line); border-radius:12px; padding:16px; text-align:center; }
+    .stat strong { font-size:1.4rem; color:var(--primary-dark); display:block; }
+    .timeline { counter-reset: step; list-style:none; padding:0; margin:0; }
+    .timeline li { background:#fff; border:1px solid var(--line); border-radius:12px; padding:14px 16px 14px 52px; margin-bottom:10px; position:relative; }
+    .timeline li::before { counter-increment: step; content: counter(step); position:absolute; left:16px; top:12px; width:26px;height:26px;border-radius:50%; background:var(--primary); color:#fff; text-align:center; line-height:26px; font-weight:700; }
+    details { background:#fff; border:1px solid var(--line); border-radius:10px; padding:10px 14px; margin-bottom:10px; }
+    summary { cursor:pointer; font-weight:700; }
+    .footer-cta { text-align:center; background:#1f2240; color:#fff; border-radius:18px; padding:36px 22px; }
+    .footer-cta .btn.secondary { color:#fff;border-color:#fff;background:transparent; }
+    @media (max-width: 900px) {
+      .hero-grid,.grid-2,.cards-3,.stats { grid-template-columns:1fr; }
+    }
+  </style>
 </head>
 <body>
-    <div class="header">
-        <h1>食べやせダイエット | あなたにぴったりな診断チャート</h1>
-        <p>質問に答えて、あなたに最適なダイエット方法を見つけましょう！</p>
+  <header class="hero">
+    <div class="container hero-grid">
+      <div>
+        <span class="badge">Growth Partner Support</span>
+        <h1>やるべきことはわかってる。<br>でも、手が回らない。</h1>
+        <p class="lead">SNS・LINE・プロモーション・セミナー——教育事業の「マーケ実行」を、丸ごと代わりに動かします。</p>
+        <p>コーチング・講座販売・コンサルタント業をやっている方のための、マーケティング実行＋伴走支援サービスです。月額5万円から、あなたの事業に専任チームがつきます。</p>
+        <div class="cta-row">
+          <a href="#contact" class="btn primary">まず無料相談してみる →</a>
+          <a href="#plans" class="btn secondary">プランを見る →</a>
+        </div>
+        <p class="meta">初期費用：¥30,000（初回のみ） / 最低契約：3ヶ月〜 / 全プラン月1 MTG込み</p>
+      </div>
+      <div class="photo">hero photo — チームMTGの様子</div>
     </div>
-    
-    <div class="progress-container">
-        <div class="progress-bar" id="progress-bar" style="width: 0%"></div>
+  </header>
+
+  <section>
+    <div class="container">
+      <h2>Pain Points</h2>
+      <p>売り上げを伸ばしたいのに、手が止まっている理由、心当たりありませんか？</p>
+      <ul class="list-check">
+        <li>SNSは続けているけど、売上につながっている実感がない</li><li>LINE構築やセミナー準備が後回し</li><li>コンテンツ制作で手一杯</li><li>外注先管理の手間が増えている</li><li>プロモーションのたびに不安</li><li>事業を見てくれるプロのパートナーがいない</li>
+      </ul>
     </div>
-    
-    <!-- 質問1 -->
-    <div class="question-container" id="q1">
-        <div class="question">Q1：ダイエットで最も失敗しやすいのはどんなとき？</div>
-        <div class="option" onclick="goToQuestion('q2', 'A')">
-            <span class="arrow">➜</span> 食べ過ぎてしまう
-        </div>
-        <div class="option" onclick="goToQuestion('q2', 'B')">
-            <span class="arrow">➜</span> 食事制限が続かない
-        </div>
-        <div class="option" onclick="goToQuestion('q2', 'C')">
-            <span class="arrow">➜</span> 運動が続かない
-        </div>
+  </section>
+
+  <section>
+    <div class="container grid-2">
+      <div>
+        <h2>Solution</h2>
+        <p>あなたの事業専任の「実行チーム」を、月額から持てる時代に。</p>
+        <p>SNS投稿・LINE構築・セミナー台本・動画ライティング・LP作成まで、事業を理解したプロチームが代わりに実行。上位プランでは商品設計・セールスファネル・価格戦略まで伴走します。</p>
+      </div>
+      <div class="card">service overview — サービス全体像の図解</div>
     </div>
-    
-    <!-- 質問2 -->
-    <div class="question-container hidden" id="q2">
-        <div class="question">Q2：炭水化物についてどう思いますか？</div>
-        <div class="option" onclick="goToQuestion('q3', 'D')">
-            <span class="arrow">➜</span> 太るので避けたい
-        </div>
-        <div class="option" onclick="goToQuestion('q3', 'E')">
-            <span class="arrow">➜</span> 適切に摂れば問題ない
-        </div>
-        <div class="option" onclick="goToQuestion('q3', 'F')">
-            <span class="arrow">➜</span> 良く分からない
-        </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <h2>Why Us</h2>
+      <div class="cards-3">
+        <div class="card"><h3>01 教育事業専門</h3><p>100社以上の教育事業を支援。業界構造を理解したうえで即日稼働可能です。</p></div>
+        <div class="card"><h3>02 伴走スタイル</h3><p>丸投げではなく、月次MTGと進捗管理で「一緒に作る」体制を実現します。</p></div>
+        <div class="card"><h3>03 チームで安定運用</h3><p>タスクマネージャー・ライター・デザイナー・動画編集者＋上位はコンサルで対応。</p></div>
+      </div>
     </div>
-    
-    <!-- 質問3 -->
-    <div class="question-container hidden" id="q3">
-        <div class="question">Q3：いつもの朝食は何ですか？</div>
-        <div class="option" onclick="goToQuestion('q4', 'G')">
-            <span class="arrow">➜</span> 食べない・コーヒーだけ
-        </div>
-        <div class="option" onclick="goToQuestion('q4', 'H')">
-            <span class="arrow">➜</span> パン・シリアルなど
-        </div>
-        <div class="option" onclick="goToQuestion('q4', 'I')">
-            <span class="arrow">➜</span> ご飯・おかず中心
-        </div>
+  </section>
+
+  <section id="plans">
+    <div class="container">
+      <h2>Plans</h2>
+      <div class="cards-3">
+        <div class="card plan"><h3>PLAN 01 タスク実行</h3><p>実行特化</p><p class="price">¥50,000〜 /月〜</p></div>
+        <div class="card plan"><h3>PLAN 02 タスク＋SNSコンサル</h3><p>実行＋SNS戦略</p><p class="price">¥100,000〜 /月〜</p></div>
+        <div class="card plan"><h3>PLAN 03 タスク＋フルコンサル</h3><p>実行＋事業全体戦略</p><p class="price">¥150,000〜 /月〜</p></div>
+      </div>
+      <h3 style="margin-top:26px;">料金プラン一覧（税別）</h3>
+      <p>初期費用：¥30,000（初回のみ）/ 最低契約期間：3ヶ月 / 全プラン月1オンラインMTG（30分）込み</p>
+      <table>
+        <thead><tr><th></th><th>ライト</th><th>スタンダード</th><th>プレミアム</th></tr></thead>
+        <tbody>
+          <tr><td>①タスク実行</td><td>¥50,000</td><td>¥150,000</td><td>¥300,000</td></tr>
+          <tr><td>②タスク＋SNSコンサル</td><td>¥100,000</td><td>¥200,000</td><td>¥350,000</td></tr>
+          <tr><td>③タスク＋フルコンサル</td><td>¥150,000</td><td>¥250,000</td><td>¥400,000</td></tr>
+          <tr><td>大規模・カスタム対応</td><td>見積もり</td><td>見積もり</td><td>見積もり</td></tr>
+        </tbody>
+      </table>
     </div>
-    
-    <!-- 質問4 -->
-    <div class="question-container hidden" id="q4">
-        <div class="question">Q4：過去にダイエットをして成功した経験は？</div>
-        <div class="option" onclick="goToQuestion('q5', 'J')">
-            <span class="arrow">➜</span> 一時的に成功したがリバウンドした
-        </div>
-        <div class="option" onclick="goToQuestion('q5', 'K')">
-            <span class="arrow">➜</span> 成功したことがない
-        </div>
-        <div class="option" onclick="goToQuestion('q5', 'L')">
-            <span class="arrow">➜</span> 成功して維持できている
-        </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <h2>Results</h2>
+      <div class="stats">
+        <div class="stat"><strong>150+</strong>累計支援社数</div>
+        <div class="stat"><strong>~140</strong>稼働中クライアント</div>
+        <div class="stat"><strong>500-1,000万</strong>平均年商（支援後）</div>
+        <div class="stat"><strong>2〜3割</strong>年商1,000万円超の割合</div>
+      </div>
     </div>
-    
-    <!-- 質問5 -->
-    <div class="question-container hidden" id="q5">
-        <div class="question">Q5：甘いものはどれくらいの頻度で食べますか？</div>
-        <div class="option" onclick="showResult()">
-            <span class="arrow">➜</span> ほぼ毎日食べる
-        </div>
-        <div class="option" onclick="showResult()">
-            <span class="arrow">➜</span> 週に2〜3回程度
-        </div>
-        <div class="option" onclick="showResult()">
-            <span class="arrow">➜</span> ほとんど食べない
-        </div>
+  </section>
+
+  <section>
+    <div class="container grid-2">
+      <div>
+        <h2>Getting Started</h2>
+        <ol class="timeline">
+          <li>無料相談（30分）</li>
+          <li>プラン確定・契約</li>
+          <li>キックオフMTG</li>
+          <li>実行スタート</li>
+          <li>月次レビュー・改善</li>
+        </ol>
+      </div>
+      <div>
+        <h2>FAQ</h2>
+        <details><summary>マーケティング経験がなくても大丈夫ですか？</summary><p>はい。現状を整理しながら、必要な実行タスクをこちらで設計します。</p></details>
+        <details><summary>どんなジャンルに対応していますか？</summary><p>英語・美容・子育て・副業・ビジネス系など、教育コンテンツ販売全般に対応しています。</p></details>
+        <details><summary>途中でプランを変更できますか？</summary><p>可能です。月次レビュー時に最適なプランへ調整できます。</p></details>
+      </div>
     </div>
-    
-    <!-- 結果表示エリア -->
-    <div class="result-container hidden" id="result">
-        <div class="result-icon">🔍</div>
-        <div class="result-title">あなたの食べやせタイプは「<span id="result-type">代謝低下型</span>」です！</div>
-        <div class="result-description" id="result-description">
-            あなたは食事制限を繰り返すうちに代謝が低下している可能性があります。炭水化物を極端に制限すると、さらに代謝が落ちてしまいます。「食べやせ」メソッドでは、正しい炭水化物の摂り方で代謝を高め、リバウンドしにくい体質に改善していきます。
-        </div>
-        <p><strong>📊 現状のままでは、3ヶ月後に基礎代謝が約12%低下する恐れがあります。</strong></p>
-        <p>あなたに最適な食べやせプランについて、専門家に相談してみませんか？</p>
-        <button class="retry-button" onclick="location.href='https://your-website.com/contact'">無料カウンセリングを予約する</button>
-        <button class="retry-button" onclick="resetQuiz()">もう一度診断する</button>
+  </section>
+
+  <section id="contact">
+    <div class="container footer-cta">
+      <h2>あなたの事業に、本気で向き合うパートナーがいます。</h2>
+      <p>やるべきことはわかっている。あとは、動かすだけ。その「動かす」を、私たちが担います。</p>
+      <div class="cta-row" style="justify-content:center;">
+        <a href="#" class="btn primary">▶ 無料相談を予約する（30分・完全無料）</a>
+        <a href="#" class="btn secondary">About Us</a>
+      </div>
+      <p style="margin-top:14px;opacity:.9;">初期費用：¥30,000 / 最低契約：3ヶ月〜 / しつこい営業なし / 話だけでもOK</p>
     </div>
-    
-    <script>
-        let answers = {};
-        let currentProgress = 0;
-        
-        function updateProgressBar(questionNumber) {
-            const totalQuestions = 5;
-            currentProgress = (questionNumber / totalQuestions) * 100;
-            document.getElementById('progress-bar').style.width = `${currentProgress}%`;
-        }
-        
-        function goToQuestion(nextQuestionId, answer) {
-            // 現在の質問番号を取得（例：q1なら1）
-            const currentQuestionNumber = parseInt(document.querySelector('.question-container:not(.hidden)').id.replace('q', ''));
-            
-            // 次の質問番号
-            const nextQuestionNumber = parseInt(nextQuestionId.replace('q', ''));
-            
-            // 回答を保存
-            answers[`q${currentQuestionNumber}`] = answer;
-            
-            // 現在の質問を非表示
-            document.querySelector('.question-container:not(.hidden)').classList.add('hidden');
-            
-            // 次の質問を表示
-            document.getElementById(nextQuestionId).classList.remove('hidden');
-            
-            // プログレスバーを更新
-            updateProgressBar(nextQuestionNumber - 1);
-        }
-        
-        function showResult() {
-            // 最後の質問の回答を保存
-            const lastQuestionNumber = parseInt(document.querySelector('.question-container:not(.hidden)').id.replace('q', ''));
-            answers[`q${lastQuestionNumber}`] = 'final';
-            
-            // 全ての質問を非表示
-            document.querySelectorAll('.question-container').forEach(container => {
-                container.classList.add('hidden');
-            });
-            
-            // 結果に基づいて診断タイプを決定（実際の実装ではより複雑なロジックになります）
-            determineResultType();
-            
-            // 結果を表示
-            document.getElementById('result').classList.remove('hidden');
-            
-            // プログレスバーを100%に
-            updateProgressBar(5);
-        }
-        
-        function determineResultType() {
-            // ここでは簡単なロジックですが、実際の実装ではより複雑な判定になります
-            // A, D, G, J の組み合わせが多ければ「代謝低下型」など
-            
-            const resultTypes = [
-                {
-                    type: "代謝低下型",
-                    description: "あなたは食事制限を繰り返すうちに代謝が低下している可能性があります。炭水化物を極端に制限すると、さらに代謝が落ちてしまいます。「食べやせ」メソッドでは、正しい炭水化物の摂り方で代謝を高め、リバウンドしにくい体質に改善していきます。"
-                },
-                {
-                    type: "糖質過多型",
-                    description: "あなたは知らず知らずのうちに過剰な糖質を摂取している可能性があります。特に加工食品に含まれる糖質が代謝を妨げています。「食べやせ」メソッドでは、良質な炭水化物と摂取タイミングの調整で、効率的に脂肪を燃焼させる方法をお伝えします。"
-                },
-                {
-                    type: "食べ順エラー型",
-                    description: "あなたは食べる順番が血糖値の急上昇を招き、脂肪蓄積を促進している可能性があります。「食べやせ」メソッドでは、同じ食事内容でも食べる順番を変えるだけで代謝が上がり、痩せやすい体質になれることをお伝えします。"
-                }
-            ];
-            
-            // ランダムに結果を選択（デモ用）
-            // 実際の実装では回答パターンに基づいて判定します
-            const randomIndex = Math.floor(Math.random() * resultTypes.length);
-            const selectedResult = resultTypes[randomIndex];
-            
-            document.getElementById('result-type').textContent = selectedResult.type;
-            document.getElementById('result-description').textContent = selectedResult.description;
-        }
-        
-        function resetQuiz() {
-            // 回答をリセット
-            answers = {};
-            
-            // 全ての質問と結果を非表示
-            document.querySelectorAll('.question-container, .result-container').forEach(container => {
-                container.classList.add('hidden');
-            });
-            
-            // 最初の質問を表示
-            document.getElementById('q1').classList.remove('hidden');
-            
-            // プログレスバーをリセット
-            updateProgressBar(0);
-        }
-        
-        // 初回のプログレスバー設定
-        updateProgressBar(0);
-    </script>
+  </section>
 </body>
 </html>
